@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer))]
 public class TextureCreator : MonoBehaviour {
 
-	[Range(2, 512)]
+	[Range(30, 1920)]
 	public int resolution = 256;
 
 	public float frequency = 1f;
@@ -27,27 +28,29 @@ public class TextureCreator : MonoBehaviour {
 
 	private Texture2D texture;
 	
-	private void OnEnable () {
+	private void Awake () {
+        
         if (ApplyRandomParametersOnEnable)
         {
             ApplyRandomParameters();
         }
 		if (texture == null) {
-			texture = new Texture2D(resolution, resolution, TextureFormat.RGB24, true);
+            texture = new Texture2D(resolution, resolution, TextureFormat.RGB24, true);
 			texture.name = "Procedural Texture";
 			texture.wrapMode = TextureWrapMode.Clamp;
 			texture.filterMode = FilterMode.Trilinear;
 			texture.anisoLevel = 9;
 			GetComponent<MeshRenderer>().material.mainTexture = texture;
+            coloring = new Gradient();
 		}
 		FillTexture();
 	}
 
 	private void Update () {
-		/*if (transform.hasChanged) {
+		if (transform.hasChanged) {
 			transform.hasChanged = false;
 			FillTexture();
-		}*/
+		}
 	}
 	
 	public void FillTexture () {
