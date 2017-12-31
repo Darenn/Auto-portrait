@@ -45,13 +45,6 @@ public class TextureCreator : MonoBehaviour {
 		}
 		FillTexture();
 	}
-
-	private void Update () {
-		if (transform.hasChanged) {
-			transform.hasChanged = false;
-			FillTexture();
-		}
-	}
 	
 	public void FillTexture () {
 		if (texture.width != resolution) {
